@@ -1,0 +1,82 @@
+html{
+    height: 100%;
+    width: 100%;
+}
+body{
+    height: 100%;
+}
+.el-header, .el-footer {
+    background-color: rgb(46,94,133);
+    color:white;
+    text-align: center;
+    line-height: 60px;
+  }
+  
+  .el-aside {
+    background-color: rgb(84,92,100);
+    color: #333;
+    text-align: center;
+    line-height: 200px;
+  }
+  
+  .el-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+  }
+  
+  body > .el-container {
+    margin-bottom: 40px;
+    height: 100%;
+  }
+  
+  .el-container:nth-child(5) .el-aside,
+  .el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+  }
+  
+  .el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+  }
+#app{
+    height: 100%;
+}
+.box{
+    height: 100%;
+}
+.el-container.is-vertical{
+    height: 100%;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+.head{
+    display: flex;
+    justify-content: space-between;
+}
+.h-head {
+    display: flex;
+    justify-content: space-around;
+    height: 70px;
+    margin-bottom: 10px;
+    
+}
+.h-box {
+    width: 280px;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+    margin: 5px;
+    height: 100%;
+    align-items: center; 
+    box-shadow: 0 3px 3px 0 #dddddd;
+    background-color: white;
+}
+.h-font {
+    font-size: 12px;
+}
+.h-font1 {
+    font-size: 16px;
+    font-weight: 700;
+}
