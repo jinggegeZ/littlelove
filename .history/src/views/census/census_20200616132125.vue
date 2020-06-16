@@ -5,14 +5,14 @@
             <div class="nab11">
                 <div class="nab11-1">
                     <div class="nab111">今日发布</div>
-                    <div class="nab111 nab112" >{{toda.length}}</div>
+                    <div class="nab111 nab112">1</div>
                 </div>
                 <div class="nab16"><img src="../../../public/cen1 (1).png" alt="" width="55px" height="55px"></div>
             </div>
             <div class="nab12">
                 <div class="nab11-1">
                     <div class="nab111">原创文章</div>
-                    <div class="nab111 nab112">{{self.length}}</div>
+                    <div class="nab111 nab112">5</div>
                 </div>
                 <div class="nab16"><img src="../../../public/cen1 (2).png" alt="" width="55px" height="55px"></div>
             </div>
@@ -73,9 +73,7 @@ import dayjs from 'dayjs'
         chartData2: {
           columns: ['时间', '数量'],
           rows: []
-        },
-        toda:'',
-        self:''
+        }
      }
    },
    methods: {
@@ -100,7 +98,7 @@ import dayjs from 'dayjs'
                   '来源' : i
                })
            }
-        res.data.data.map(item => {
+        this.arr.map(item => {
              item.date = dayjs(item.date).format("YYYY年MM月DD日");
           })
         let obj3 = groupBy(res.data.data,'date')
@@ -110,12 +108,6 @@ import dayjs from 'dayjs'
                   '时间' : i
                })
            }
-        this.toda = res.data.data.filter(item => {
-            return item.date === dayjs().format("YYYY年MM月DD日")
-        })
-        this.self = res.data.data.filter(item => {
-            return item.source === "原创"
-        })
        }).catch(err => {
            console.log(err)
        })

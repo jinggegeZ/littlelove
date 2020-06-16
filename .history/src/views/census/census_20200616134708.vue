@@ -110,12 +110,7 @@ import dayjs from 'dayjs'
                   '时间' : i
                })
            }
-        this.toda = res.data.data.filter(item => {
-            return item.date === dayjs().format("YYYY年MM月DD日")
-        })
-        this.self = res.data.data.filter(item => {
-            return item.source === "原创"
-        })
+        let obj4 = groupBy(res.data.data,'date')
        }).catch(err => {
            console.log(err)
        })

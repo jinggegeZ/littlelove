@@ -158,7 +158,7 @@ import axios from 'axios'
         this.$refs.ruleForm.validate(valid => {
         if (valid) {
           axios
-            .post("/api/article/update", {
+            .post("/api/article/create", {
               title: this.ruleForm.title,
               abstract: this.ruleForm.abstract,
               author: this.ruleForm.author,

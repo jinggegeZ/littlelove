@@ -8,17 +8,17 @@
         <div>
       <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="文章标题" prop="title" :rules="[{ required: true,},]">
-          <el-input v-model="ruleForm.title" autocomplete="off"></el-input>
+          <el-input v-model="arr.title" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="文章摘要" prop="abstract" :rules="[{ required: true,},]">
-          <el-input v-model="ruleForm.abstract" autocomplete="off"></el-input>
+          <el-input v-model="arr.abstract" autocomplete="off"></el-input>
         </el-form-item>
         <div class="pbitem">
           <el-form-item label="作者" :rules="[{ required: true,}]" prop="author">
-            <el-input v-model="ruleForm.author" autocomplete="off"></el-input>
+            <el-input v-model="arr.author" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="类目" :rules="[{ required: true,}]">
-            <el-select placeholder="请选择" v-model="ruleForm.category">
+            <el-select placeholder="请选择" v-model="arr.category">
               <el-option
                 v-for="(item) in leixing"
                 :key="item.value"
@@ -28,7 +28,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="来源" :rules="[{ required: true,}]" prop="source">
-            <el-select placeholder="请选择" v-model="ruleForm.source">
+            <el-select placeholder="请选择" v-model="arr.source">
               <el-option
                 v-for="(item) in laiyuan"
                 :key="item.value"
@@ -38,7 +38,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="重要性" :rules="[{ required: true,}]" prop="star">
-            <el-select placeholder="请选择" v-model="ruleForm.star">
+            <el-select placeholder="请选择" v-model="arr.star">
               <el-option
                 v-for="(item) in star"
                 :key="item.value"
@@ -48,13 +48,13 @@
             </el-select>
           </el-form-item>
           <el-form-item label="发布时间" :rules="[{ required: true,}]" prop="date">
-            <el-date-picker v-model="ruleForm.date" type="datetime" placeholder="选择日期时间"></el-date-picker>
+            <el-date-picker v-model="arr.date" type="datetime" placeholder="选择日期时间"></el-date-picker>
           </el-form-item>
         </div>
       </el-form>
     </div>
     <div class="foot">
-        <mavon-editor v-model="ruleForm.text" />
+        <mavon-editor v-model="arr.text" />
     </div>
     </div>
  </div>
@@ -158,23 +158,22 @@ import axios from 'axios'
         this.$refs.ruleForm.validate(valid => {
         if (valid) {
           axios
-            .post("/api/article/update", {
-              title: this.ruleForm.title,
-              abstract: this.ruleForm.abstract,
-              author: this.ruleForm.author,
-              category: this.ruleForm.category,
-              source: this.ruleForm.source,
-              star: this.ruleForm.star,
-              date: this.ruleForm.date,
-              text:this.ruleForm.text,
-              id :this.id
+            .post("/api/article/create", {
+              title: this.arr.title,
+              abstract: this.arr.abstract,
+              author: this.arr.author,
+              category: this.arr.category,
+              source: this.arr.source,
+              star: this.arr.star,
+              date: this.arr.date,
+              text:this.arr.text,
             })
             .then(res => {
-              if (res.data.success === true) {
+              if (res.data.code === 200) {
                 this.$message.success("发布成功");
                 this.$router.push("published");
               } else {
-                this.$message.error('发布失败');
+                this.$message.error(res.data.message);
               }
             })
             .catch(err => {

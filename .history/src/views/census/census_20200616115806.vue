@@ -5,14 +5,14 @@
             <div class="nab11">
                 <div class="nab11-1">
                     <div class="nab111">今日发布</div>
-                    <div class="nab111 nab112" >{{toda.length}}</div>
+                    <div class="nab111 nab112">1</div>
                 </div>
                 <div class="nab16"><img src="../../../public/cen1 (1).png" alt="" width="55px" height="55px"></div>
             </div>
             <div class="nab12">
                 <div class="nab11-1">
                     <div class="nab111">原创文章</div>
-                    <div class="nab111 nab112">{{self.length}}</div>
+                    <div class="nab111 nab112">5</div>
                 </div>
                 <div class="nab16"><img src="../../../public/cen1 (2).png" alt="" width="55px" height="55px"></div>
             </div>
@@ -49,7 +49,6 @@
 <script>
 import groupBy from 'lodash/groupBy'
 import axios from 'axios'
-import dayjs from 'dayjs'
  export default {
    name: '',
    props: {
@@ -73,49 +72,32 @@ import dayjs from 'dayjs'
         chartData2: {
           columns: ['时间', '数量'],
           rows: []
-        },
-        toda:'',
-        self:''
+        }
      }
    },
    methods: {
 
    },
    mounted() {
-       axios
-       .get('/api/article/allArticle')
-       .then(res => {
-           
-        let obj1 = groupBy(res.data.data,'category')
-           for(let i in obj1){
+       axios.get('/api/article/allArticle').then(res => {
+           let obj = groupBy(res.data.data,'category')
+           for(let i in obj){
                this.chartData.rows.push({
-                  '数量': obj1[i].length,
+                  '数量': obj[i].length,
                   '类目' : i
                })
            }
-        let obj2 = groupBy(res.data.data,'source')
-           for(let i in obj2){
+       }).catch(err => {
+           console.log(err)
+       }),
+       axios.get('/api/article/allArticle').then(res => {
+           let obj = groupBy(res.data.data,'source')
+           for(let i in obj){
                this.chartData1.rows.push({
-                  '数量': obj2[i].length,
+                  '数量': obj[i].length,
                   '来源' : i
                })
            }
-        res.data.data.map(item => {
-             item.date = dayjs(item.date).format("YYYY年MM月DD日");
-          })
-        let obj3 = groupBy(res.data.data,'date')
-           for(let i in obj3){
-               this.chartData2.rows.push({
-                  '数量': obj3[i].length,
-                  '时间' : i
-               })
-           }
-        this.toda = res.data.data.filter(item => {
-            return item.date === dayjs().format("YYYY年MM月DD日")
-        })
-        this.self = res.data.data.filter(item => {
-            return item.source === "原创"
-        })
        }).catch(err => {
            console.log(err)
        })

@@ -158,7 +158,7 @@ import axios from 'axios'
         this.$refs.ruleForm.validate(valid => {
         if (valid) {
           axios
-            .post("/api/article/update", {
+            .post("/api/article/create", {
               title: this.ruleForm.title,
               abstract: this.ruleForm.abstract,
               author: this.ruleForm.author,
@@ -170,11 +170,11 @@ import axios from 'axios'
               id :this.id
             })
             .then(res => {
-              if (res.data.success === true) {
+              if (res.data.code === 200) {
                 this.$message.success("发布成功");
                 this.$router.push("published");
               } else {
-                this.$message.error('发布失败');
+                this.$message.error(res.data.message);
               }
             })
             .catch(err => {
